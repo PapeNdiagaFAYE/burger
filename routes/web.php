@@ -14,31 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-    // if (Auth::check()) {
-    //     // Rediriger vers l'index des burgers selon le rôle
-    //     if (Auth::user()->role === 'client') {
-    //         return redirect()->route('burger');
-    //     } elseif (Auth::user()->role === 'gestionnaire') {
-    //         return redirect()->route('burger');
-    //     }
-    // } else {
-    //     return redirect()->route('burger');
-    // }
-
-Route::get('/',[\App\Http\Controllers\BurgerController::class,'index'])->name('burger');
-
-
-    Route::get('/addBurger',[\App\Http\Controllers\BurgerController::class,'create'])->name('addBurger');
-    Route::get('/showBurger/{id}',[\App\Http\Controllers\BurgerController::class,'show'])->where('id', '[0-9]+')->name('showBurger');
-
-
-    //return view('welcome');
-
-
-Route::get('/burger',[\App\Http\Controllers\BurgerController::class,'index'])->name('burger');
-Route::get('/showBurger/{id}',[\App\Http\Controllers\BurgerController::class,'show'])->name('showBurger');
-
-
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -49,7 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-
+    
 Route::get('/burger',[\App\Http\Controllers\BurgerController::class,'index'])->name('burger');
 Route::get('/addBurger',[\App\Http\Controllers\BurgerController::class,'create'])->name('addBurger');
 Route::post('/saveBurger',[\App\Http\Controllers\BurgerController::class,'store'])->name('saveBurger');
@@ -76,11 +54,6 @@ Route::get('/showCommande/{id}',[\App\Http\Controllers\CommandeController::class
     Route::get('/cart/checkout', [\App\Http\Controllers\CardController::class, 'checkout'])->name('cart.checkout');
 
 
-
 });
 
-
-
-
 require __DIR__.'/auth.php';
-
