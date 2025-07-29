@@ -52,8 +52,8 @@ jobs:
       - name: 📦 Installer les dépendances Composer
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
-      - name: 🔑 Générer la clé d’application
-        run: php artisan key:generate
+      - name: 🔑 Copier fichier .env.testing et générer la clé
+        run: cp .env.testing .env && php artisan key:generate
 
       - name: 🧪 Lancer les tests Laravel
         run: php artisan test
