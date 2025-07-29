@@ -2,6 +2,13 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StatistiqueController;
+use App\Http\Controllers\BurgerController;
+use App\Http\Controllers\CardController;
+use App\Http\Controllers\CommandeController;
+use App\Http\Controllers\PaiementController;
+use App\Http\Controllers\FactureController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +33,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    
+    Route::get('/statistiques', [StatistiqueController::class, 'index'])->name('statistiques.index');
+    Route::get('/statistiques/commandes-mois', [StatistiqueController::class, 'commandesParMois']);
+    Route::get('/statistiques/produits-categorie', [StatistiqueController::class, 'produitsParCategorie']);
 
     
 Route::get('/burger',[\App\Http\Controllers\BurgerController::class,'index'])->name('burger');

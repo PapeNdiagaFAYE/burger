@@ -56,10 +56,11 @@
         </form> --}}
         
 
-        @if($commande->statut === 'payee')
+        @if($commande && $commande->statut === 'payee')
             <div class="alert alert-info">
 
-                Cette commande a été payée le {{ $commande->date_paiement->format('d/m/Y à H:i') }}.
+                Cette commande a été payée le {{ $commande->date_paiement ? $commande->date_paiement->format('d/m/Y à H:i') : 'Date inconnue' }}
+.
             </div>
         @endif
 

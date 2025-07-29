@@ -13,6 +13,7 @@ class CardController extends Controller
 {
     public function show()
     {
+        $user = auth()->user();
         $cartItems = Card::where('user_id', auth()->id())
             ->with('burger')
             ->get();
@@ -21,8 +22,9 @@ class CardController extends Controller
             return $item->burger->prix * $item->quantite;
         });
 
+        $commande = Commande::where('user_id', auth()->id())->latest()->first(); 
 
-        return view('burger.cart', compact('cartItems', 'total'));
+        return view('burger.cart', compact('cartItems', 'total', 'commande'));
     }
 
     public function update(Request $request, Card $cartItem)
