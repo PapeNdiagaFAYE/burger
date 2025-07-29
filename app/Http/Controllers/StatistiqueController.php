@@ -27,7 +27,18 @@ class StatistiqueController extends Controller
             ->where('statut', 'Payée')
             ->sum('montant_paye');
 
-        return view('statistiques.index', compact('commandesEnCours', 'commandesValidees', 'recetteJour'));
+        // Nombre de commandes par mois sur les 12 derniers mois
+    $commandesParMois = Commande::select(
+            DB::raw("DATE_TRUNC('month', created_at) as mois"),
+            DB::raw("COUNT(*) as total")
+        )
+        ->where('created_at', '>=', $aujourdhui->copy()->subYear())
+        ->groupBy('mois')
+        ->orderBy('mois')
+        ->get()
+        ->pluck('total', 'mois');
+
+        return view('statistique.index', compact('commandesEnCours', 'commandesValidees', 'recetteJour', 'commandesParMois'));
     }
 
     // Retourne les données JSON pour les commandes par mois

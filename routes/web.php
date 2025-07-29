@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     
-    Route::get('/statistiques', [StatistiqueController::class, 'index'])->name('statistiques.index');
+    Route::get('/statistique', [StatistiqueController::class, 'index'])->name('statistique.index');
     Route::get('/statistiques/commandes-mois', [StatistiqueController::class, 'commandesParMois']);
     Route::get('/statistiques/produits-categorie', [StatistiqueController::class, 'produitsParCategorie']);
 
@@ -47,8 +47,9 @@ Route::delete('/deleteBurger/{id}',[\App\Http\Controllers\BurgerController::clas
 Route::get('/editBurger/{id}',[\App\Http\Controllers\BurgerController::class,'edit'])->name('editBurger');
 Route::put('/updateBurger/{id}',[\App\Http\Controllers\BurgerController::class,'update'])->name('updateBurger');
 Route::get('/showBurger/{id}',[\App\Http\Controllers\BurgerController::class,'show'])->name('showBurger');
-Route::get('/archiveBurger/{id}',[\App\Http\Controllers\BurgerController::class,'archiver'])->name('archiveBurger');
-//Route::get('/desarchiveBurger/{id}',[\App\Http\Controllers\BurgerController::class,'desarchiver'])->name('desarchiveBurger');
+Route::patch('/burgers/{id}/archiver', [\App\Http\Controllers\BurgerController::class, 'archiver'])->name('burgers.archiver');
+Route::patch('/burgers/{id}/desarchiver', [\App\Http\Controllers\BurgerController::class, 'desarchiver'])->name('burgers.desarchiver');
+Route::get('/burgers/archives', [\App\Http\Controllers\BurgerController::class, 'archives'])->name('burgers.archives');
 
 
 Route::get('/commande',[\App\Http\Controllers\CommandeController::class,'index'])->name('commande');
@@ -70,6 +71,8 @@ Route::get('/showCommande/{id}',[\App\Http\Controllers\CommandeController::class
     Route::get('/commandes/{commande}/facture', [\App\Http\Controllers\FactureController::class, 'genererFacture'])->name('commandes.facture');
     Route::get('/factures', [\App\Http\Controllers\FactureController::class, 'index'])->name('facture');
     Route::get('/facture/{commande}/pdf', [\App\Http\Controllers\FactureController::class, 'telechargerPdf'])->name('commandes.facture.pdf');
+
+    Route::get('/statistique', [\App\Http\Controllers\StatistiqueController::class, 'index'])->name('statistique.index');
 
 });
 
